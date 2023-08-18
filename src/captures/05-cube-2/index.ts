@@ -13,13 +13,14 @@ export default function render() {
   const program = createProgram(gl, vertexSource, fragmentSource);
   gl.useProgram(program);
 
-  const [vertices, colors, indices] = sphere(5);
+  const [vertices, normals, indices] = cube();
+  // const [vertices, normals, indices] = sphere();
 
   const n = indices.length;
 
   // Set position and color
   buffer(gl, vertices, program, 'position', 3, gl.FLOAT);
-  buffer(gl, colors, program, 'color', 3, gl.FLOAT);
+  buffer(gl, normals, program, 'color', 3, gl.FLOAT);
 
   // Set indices
   const indexBuffer = gl.createBuffer();
@@ -40,6 +41,7 @@ export default function render() {
     cameraMatrix.rotateSelf(0.4, 0.8, 0.4);
     gl.uniformMatrix4fv(camera, false, cameraMatrix.toFloat32Array());
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawElements(gl.LINE_STRIP, n, gl.UNSIGNED_SHORT, 0);
-  }, 16);
+    gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
+    // gl.drawElements(gl.LINE_STRIP, n, gl.UNSIGNED_SHORT, 0);
+  }, 100);
 }

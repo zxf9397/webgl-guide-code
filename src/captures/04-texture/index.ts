@@ -13,8 +13,16 @@ export default function render() {
 
   // Interleaved data buffer (X,Y: vertex coordinates, U,V: texture coordinates)
   // Texture coordinates are also sometimes called S and T
+  // prettier-ignore
   const verticesTexCoords = new Float32Array([
-    -0.5, 0.5, 0.0, 1.0, -0.5, -0.5, 0.0, 0.0, 0.5, 0.5, 1.0, 1.0, 0.5, -0.5, 1.0, 0.0,
+    -0.5, 0.5, // point 1
+    0.0, 1.0,  // t 1
+    -0.5, -0.5, // point 2
+    0.0, 0.0,  // t 2
+    0.5, 0.5,  // point 3
+    1.0, 1.0,  // t 2
+    0.5, -0.5, // point 4
+    1.0, 0.0,  // t 4
   ]);
 
   const n = 4; // vertices (4)
@@ -45,7 +53,6 @@ export default function render() {
   image.crossOrigin = 'anonymous';
   image.src = 'https://xem.github.io/webgl-guide/7/sky.jpg'; // URL or path relative to the HTML file
 
-  console.log(gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS));
   image.onload = function () {
     // Flip the image's y axis
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);

@@ -88,48 +88,49 @@ export const cube = () => {
 // Declare a sphere (customizable precision, radius = 1)
 // Returns [vertices (Float32Array), normals (Float32Array), indices (Uint16Array)]
 export function sphere(precision = 25) {
-  let i, ai, si, ci;
-  let j, aj, sj, cj;
-  let p1, p2;
   const positions = [];
   const normals = [];
   const indices = [];
 
   // Coordinates
-  for (j = 0; j <= precision; j++) {
-    aj = (j * Math.PI) / precision;
-    sj = Math.sin(aj);
-    cj = Math.cos(aj);
-    for (i = 0; i <= precision; i++) {
-      ai = (i * 2 * Math.PI) / precision;
-      si = Math.sin(ai);
-      ci = Math.cos(ai);
+  for (let par = 0; par <= precision; par++) {
+    const lat = Math.PI * (par / precision);
+    const latX = Math.sin(lat);
+    const latY = Math.cos(lat);
 
-      positions.push(si * sj); // X
-      positions.push(cj); // Y
-      positions.push(ci * sj); // Z
+    for (let mer = 0; mer <= precision; mer++) {
+      const lon = 2 * Math.PI * (mer / precision);
+      const lonX = Math.cos(lon) * latX; // cos = lonX / latX
+      const lonZ = Math.sin(lon) * latX; // sin = lonZ / latX
 
-      normals.push(1.0, 1.0, 1.0);
+      positions.push(lonX, latY, lonZ);
+      normals.push(lonX, latY, lonZ);
     }
   }
 
   // Indices
-  for (j = 0; j < precision; j++) {
-    for (i = 0; i < precision; i++) {
-      p1 = j * (precision + 1) + i;
-      p2 = p1 + (precision + 1);
+  for (let par = 0; par < precision; par++) {
+    for (let mer = 0; mer < precision; mer++) {
+      const p1 = par * (precision + 1) + mer;
+      const p2 = p1 + (precision + 1);
+      const p3 = p1 + 1;
+      const p4 = p2 + 1;
 
       indices.push(p1);
       indices.push(p2);
-      indices.push(p1 + 1);
+      indices.push(p3);
 
-      indices.push(p1 + 1);
+      indices.push(p3);
       indices.push(p2);
-      indices.push(p2 + 1);
+      indices.push(p4);
     }
   }
 
-  return [new Float32Array(positions), new Float32Array(normals), new Uint16Array(indices)] as [Float32Array, Float32Array, Uint16Array];
+  return [new Float32Array(positions), new Float32Array(normals), new Uint16Array(indices)] as [
+    Float32Array,
+    Float32Array,
+    Uint16Array
+  ];
 }
 
 // Declare a pyramid (base: 1x1 square, sides: equilateral triangles)
@@ -168,7 +169,13 @@ export const pyramid = () => {
 };
 
 // Draw a model
-export const drawModel = (gl: WebGL2RenderingContext, program: WebGLProgram, cameraMatrix: DOMMatrix, modelMatrix: number[], n: number) => {
+export const drawModel = (
+  gl: WebGL2RenderingContext,
+  program: WebGLProgram,
+  cameraMatrix: DOMMatrix,
+  modelMatrix: number[],
+  n: number
+) => {
   // Set the model matrix (add the custom scale if any)
   const model = gl.getUniformLocation(program, 'model');
   gl.uniformMatrix4fv(model, false, new DOMMatrix(modelMatrix).toFloat32Array());

@@ -13,7 +13,7 @@ export default function render() {
   const program = createProgram(gl, vertexSource, fragmentSource);
   gl.useProgram(program);
 
-  const [vertices, normals, indices] = cube();
+  const [vertices, normals, indices] = sphere(50);
 
   const n = indices.length;
   // Set position, color, normal buffers
@@ -27,7 +27,7 @@ export default function render() {
 
   // Set cube color
   const color = gl.getAttribLocation(program, 'color');
-  gl.vertexAttrib3f(color, 1, 0, 0);
+  gl.vertexAttrib3f(color, 1, 1, 1);
 
   // Set the clear color and enable the depth test
   gl.clearColor(0, 0, 0, 1);
@@ -43,9 +43,10 @@ export default function render() {
   const lightColor = gl.getUniformLocation(program, 'lightColor');
   gl.uniform3f(lightColor, 1, 1, 1);
   const lightDirection = gl.getUniformLocation(program, 'lightDirection');
-  gl.uniform3f(lightDirection, 0.1, 0.6, 0.8);
+  gl.uniform3f(lightDirection, 0.2, 0.8, 0.8);
 
   // Render
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  // gl.drawElements(gl.LINE_STRIP, n, gl.UNSIGNED_SHORT, 0);
   gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
 }

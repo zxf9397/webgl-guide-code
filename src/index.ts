@@ -4,7 +4,7 @@ import { routes } from './routes';
 let canvasReplacement: HTMLCanvasElement;
 function renderGL(name: string, render: () => void) {
   const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = 400;
+  canvas.width = canvas.height = 800;
   canvas.id = 'canvas';
 
   canvasReplacement ? canvasReplacement.replaceWith(canvas) : document.body.appendChild(canvas);
