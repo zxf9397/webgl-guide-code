@@ -92,6 +92,7 @@ export function sphere(precision = 25) {
   let j, aj, sj, cj;
   let p1, p2;
   const positions = [];
+  const normals = [];
   const indices = [];
 
   // Coordinates
@@ -107,6 +108,8 @@ export function sphere(precision = 25) {
       positions.push(si * sj); // X
       positions.push(cj); // Y
       positions.push(ci * sj); // Z
+
+      normals.push(1.0, 1.0, 1.0);
     }
   }
 
@@ -126,7 +129,7 @@ export function sphere(precision = 25) {
     }
   }
 
-  return [new Float32Array(positions), new Float32Array(positions), new Uint16Array(indices)] as [BufferSource, BufferSource, BufferSource];
+  return [new Float32Array(positions), new Float32Array(normals), new Uint16Array(indices)] as [Float32Array, Float32Array, Uint16Array];
 }
 
 // Declare a pyramid (base: 1x1 square, sides: equilateral triangles)

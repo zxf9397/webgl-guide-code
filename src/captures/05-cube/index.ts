@@ -3,7 +3,7 @@ import fragmentSource from './fragment.fs?raw';
 import { buffer, createContext, createProgram } from '../../utils/fn';
 import { perspective } from '../../utils/fn/camera';
 
-function main() {
+export default function render() {
   const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 
   const gl = createContext(canvas);
@@ -100,5 +100,3 @@ function main() {
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
   }, 16);
 }
-
-main();

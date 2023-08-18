@@ -2,7 +2,7 @@ import vertexSource from './vertex.vs?raw';
 import fragmentSource from './fragment.fs?raw';
 import { buffer, createContext, createProgram } from '../../utils/fn';
 
-function main() {
+export default function render() {
   const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 
   const gl = createContext(canvas);
@@ -13,7 +13,9 @@ function main() {
 
   // Interleaved data buffer (X,Y: vertex coordinates, U,V: texture coordinates)
   // Texture coordinates are also sometimes called S and T
-  const verticesTexCoords = new Float32Array([-0.5, 0.5, 0.0, 1.0, -0.5, -0.5, 0.0, 0.0, 0.5, 0.5, 1.0, 1.0, 0.5, -0.5, 1.0, 0.0]);
+  const verticesTexCoords = new Float32Array([
+    -0.5, 0.5, 0.0, 1.0, -0.5, -0.5, 0.0, 0.0, 0.5, 0.5, 1.0, 1.0, 0.5, -0.5, 1.0, 0.0,
+  ]);
 
   const n = 4; // vertices (4)
   const FSIZE = verticesTexCoords.BYTES_PER_ELEMENT; // bytes per float (4)
@@ -70,5 +72,3 @@ function main() {
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the quad
   };
 }
-
-main();

@@ -2,7 +2,7 @@ import vertexSource from './vertex.vs?raw';
 import fragmentSource from './fragment.fs?raw';
 import { createContext, createProgram } from '../../utils/fn';
 
-function main() {
+export default function render() {
   // Get A WebGL context
   const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 
@@ -31,10 +31,9 @@ function main() {
 
   // Render
   setInterval(() => {
-    gl.vertexAttrib4f(position, +Math.random().toFixed(2), +Math.random().toFixed(2), 0, 1);
+    gl.vertexAttrib4f(position, +(Math.random() * 2 - 1).toFixed(1), +(Math.random() * 2 - 1).toFixed(1), 0, 1);
+    gl.uniform4f(color, +Math.random().toFixed(1), +Math.random().toFixed(1), +Math.random().toFixed(1), 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.POINTS, 0, 1);
   }, 500);
 }
-
-main();

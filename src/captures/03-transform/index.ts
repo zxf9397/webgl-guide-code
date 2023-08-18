@@ -2,7 +2,7 @@ import vertexSource from './vertex.vs?raw';
 import fragmentSource from './fragment.fs?raw';
 import { buffer, createContext, createProgram } from '../../utils/fn';
 
-function main() {
+export default function render() {
   const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 
   const gl = createContext(canvas);
@@ -32,7 +32,7 @@ function main() {
     1.0, 0.0, 0.0, 0.0, // col 1
     0.0, 1.0, 0.0, 0.0, // col 2
     0.0, 0.0, 1.0, 0.0, // col 3
-    Tx, Ty, 0.0, 1.0 // col 4
+    Tx,  Ty,  0.0, 1.0  // col 4
   ]);
   gl.uniformMatrix4fv(translation, false, t_matrix);
 
@@ -69,5 +69,3 @@ function main() {
   // Render
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 }
-
-main();
