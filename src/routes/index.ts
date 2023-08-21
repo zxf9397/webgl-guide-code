@@ -11,4 +11,5 @@ export const routes: [string, () => Promise<typeof import('../captures/01-ponit/
   ['Spot Light', () => import(`../captures/09-spot-light`)],
   ['Specular Light', () => import(`../captures/10-specular-light`)],
   ['Transform Model', () => import(`../captures/11-transform-model`)],
+  ['Cubes', () => import(`../captures/12-cubes`)],
 ];
