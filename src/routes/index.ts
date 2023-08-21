@@ -8,4 +8,5 @@ export const routes: [string, () => Promise<typeof import('../captures/01-ponit/
   ['Diffuse Light', () => import(`../captures/06-light`)],
   ['Ambient Light', () => import(`../captures/07-light-ambient`)],
   ['Point Light', () => import(`../captures/08-point-light`)],
+  ['Spot Light', () => import(`../captures/09-spot-light`)],
 ];
