@@ -12,7 +12,7 @@ void main() {
   gl_Position = camera * position;
 
   // Compute angle between the normal and that direction
-  float nDotL = max(dot(lightDirection, normalize(normal)), 0.0);
+  float nDotL = max(dot(normalize(lightDirection), normalize(normal)), 0.0);
 
   // Compute diffuse light proportional to this angle
   vec3 diffuse = lightColor * color.rgb * nDotL;

@@ -28,7 +28,7 @@ export default function render() {
 
   // Set cube color
   const color = gl.getAttribLocation(program, 'color');
-  gl.vertexAttrib3f(color, 1, 0, 0);
+  gl.vertexAttrib3f(color, 1, 1, 1);
 
   // Set the clear color and enable the depth test
   gl.clearColor(0, 0, 0, 1);
@@ -36,22 +36,21 @@ export default function render() {
 
   // Set the camera
   const cameraMatrix = perspective({ fov: 30, aspect: 1, near: 1, far: 100 });
-  cameraMatrix.translateSelf(0, 0, -3.5).rotateSelf(30, 0, 0).rotateSelf(0, -30, 0);
+  cameraMatrix.translateSelf(0, 0, -5).rotateSelf(40, 0, 0).rotateSelf(0, -45, 0);
   const camera = gl.getUniformLocation(program, 'camera');
   gl.uniformMatrix4fv(camera, false, cameraMatrix.toFloat32Array());
 
   // Set the point light color and position
   const lightColor = gl.getUniformLocation(program, 'lightColor');
-  gl.uniform3f(lightColor, 1, 1, 1);
+  gl.uniform3f(lightColor, 0.8, 0.8, 0.8);
   const lightPosition = gl.getUniformLocation(program, 'lightPosition');
-  gl.uniform3f(lightPosition, 1.4, 1.3, 1.5);
+  gl.uniform3f(lightPosition, 1.0, 2.5, 2.0);
 
   // Set the ambient light color
   const ambientLight = gl.getUniformLocation(program, 'ambientLight');
-  gl.uniform3f(ambientLight, 0.1, 0.5, 0.1);
+  gl.uniform3f(ambientLight, 0.3, 0.3, 0.3);
 
   // Render
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
   gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
 }

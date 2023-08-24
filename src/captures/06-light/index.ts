@@ -13,7 +13,7 @@ export default function render() {
   const program = createProgram(gl, vertexSource, fragmentSource);
   gl.useProgram(program);
 
-  const [vertices, normals, indices] = sphere(50);
+  const [vertices, normals, indices] = cube();
 
   const n = indices.length;
   // Set position, color, normal buffers

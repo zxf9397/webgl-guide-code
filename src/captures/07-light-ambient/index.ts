@@ -13,7 +13,7 @@ export default function render() {
   const program = createProgram(gl, vertexSource, fragmentSource);
   gl.useProgram(program);
 
-  const [vertices, normals, indices] = sphere();
+  const [vertices, normals, indices] = cube();
 
   const n = indices.length;
   // Set position, normal buffers
@@ -27,7 +27,7 @@ export default function render() {
 
   // Set cube color
   const color = gl.getAttribLocation(program, 'color');
-  gl.vertexAttrib3f(color, 1, 0, 0);
+  gl.vertexAttrib3f(color, 1, 1, 1);
 
   // Set the clear color and enable the depth test
   gl.clearColor(0, 0, 0, 1);

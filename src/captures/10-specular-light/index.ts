@@ -30,7 +30,7 @@ export default function render() {
 
   // Set cube color
   const color = gl.getAttribLocation(program, 'color');
-  gl.vertexAttrib3f(color, 1, 0, 0);
+  gl.vertexAttrib3f(color, 1, 1, 1);
 
   // Set the clear color and enable the depth test
   gl.clearColor(0, 0, 0, 1);
@@ -49,7 +49,7 @@ export default function render() {
   gl.uniformMatrix4fv(
     cameraLocation,
     false,
-    new DOMMatrix().translateSelf(0, 0, -3.5).rotateSelf(0, -30, 0).toFloat32Array()
+    new DOMMatrix().translateSelf(0, 0, -5).rotateSelf(0, -30, 0).toFloat32Array()
   );
 
   // Set light position
